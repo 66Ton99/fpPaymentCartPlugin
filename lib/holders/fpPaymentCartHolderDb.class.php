@@ -7,7 +7,7 @@
  * @subpackage Cart
  * @author     Ton Sharp <Forma-PRO@66ton99.org.ua>
  */
-class fpPaymentHolderDb extends fpPaymentHolderBase
+class fpPaymentCartHolderDb extends fpPaymentCartHolderBase
 {
   
   /**
