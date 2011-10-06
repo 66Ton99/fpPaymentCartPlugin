@@ -2,11 +2,16 @@
 
 It depends on fpPaymentPlugin, sfJqueryReloadedPlugin
 
-    $this->enablePlugins('sfDoctrinePlugin');
-    $this->enablePlugins('sfDoctrineGuardPlugin');
-    $this->enablePlugins('sfJqueryReloadedPlugin');
-    $this->enablePlugins('fpPaymentPlugin');
-    $this->enablePlugins('fpPaymentCartPlugin');
+_ProjectConfiguration.class.php_
+
+    public function setup()
+    {
+      $this->enablePlugins('sfDoctrinePlugin');
+      $this->enablePlugins('sfDoctrineGuardPlugin');
+      $this->enablePlugins('sfJqueryReloadedPlugin');
+      $this->enablePlugins('fpPaymentPlugin');
+      $this->enablePlugins('fpPaymentCartPlugin');
+    }
 
 
 You have to enable "fpPaymentCart"
@@ -47,4 +52,15 @@ _schema.yml_
         fpPaymentCartable: ~
       columns:
         some_other_field: {type: integer, notnull: true}
+    
+
+## How to use
+
+You have to include the buttons in the view. You can add the component by adding those lines:
+
+    include_component('fpPaymentCart',
+                      'editbox',
+                      array('object_class_name' => strtolower($productModel->getTable()->getTableName()),
+                            'object_id' => $productModel->getId(),
+                            'actions' => array('new')))
     
