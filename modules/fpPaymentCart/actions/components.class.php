@@ -13,7 +13,10 @@ class fpPaymentCartComponents extends sfComponents
 
   public function executeEditbox()
   {
-    foreach (array('id', 'object_id', 'object_class_name', 'view') as $val) {
+    if (empty($this->id) && !empty($this->object_id)) {
+      $this->id = $this->object_id;
+    }
+    foreach (array('el', 'object_id', 'object_class_name') as $val) {
       if (!isset($this->$val)) {
         $this->$val = null;
       } 
@@ -25,10 +28,16 @@ class fpPaymentCartComponents extends sfComponents
   
   public function executeRow()
   {
+    if (!isset($this->el)) {
+      $this->el = null;
+    }
   }
   
   public function executeIcon()
   {
+    if (empty($this->extUrl)) {
+      $this->extUrl = null;
+    }
     /* GET THE CONFIG */
     $tables = sfConfig::get('fp_payment_cart_object_classes_names');
     $simpleMode = false;
@@ -42,13 +51,6 @@ class fpPaymentCartComponents extends sfComponents
     $this->labels = sfConfig::get('fp_payment_cart_labels');
     $this->path = sfConfig::get('fp_payment_cart_images_path');
     
-    if (isset($this->extUrl)) {
-        $this->extUrl = '&view=row';
-        $this->el = "actions_{$this->id}";
-    } else {
-        $this->extUrl = '' ;
-        $this->el = 'cartbody';
-    }
     if ('new' == $this->action) {
       $this->extUrl .= "&object_id={$this->object_id}";
       if ($simpleMode) {

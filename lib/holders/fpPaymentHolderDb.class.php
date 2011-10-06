@@ -59,9 +59,11 @@ class fpPaymentHolderDb extends fpPaymentHolderBase
    */
   public function addItemByObjIdAndObjClassName($objectId, $objectClassName)
   {
-    if (!($item = $this->getItemByObjIdAndObjClassName($objectId, $objectClassName))) {
-      $user = $this->getContext()->getUser();
-      $item = fpPaymentCartTable::getInstance()->addNewItem($objectId, $objectClassName, $user->getId());
+    if ($item = $this->getItemByObjIdAndObjClassName($objectId, $objectClassName)) {
+      $item->setQuantity($item->getQuantity() + 1);
+      $item->save();
+    } else {
+      fpPaymentCartTable::getInstance()->addNewItem($objectId, $objectClassName, $this->getContext()->getUser()->getId());
     }
     return $this;
   }
@@ -89,11 +91,7 @@ class fpPaymentHolderDb extends fpPaymentHolderBase
    */
   public function clear()
   {
-    fpPaymentCartTable::getInstance()
-        ->createQuery()
-        ->addWhere('customer_id = ?', $this->getContext()->getUser()->getId())
-        ->delete()
-        ->execute();
+    fpPaymentCartTable::getInstance()->clearCustomerCart($this->getContext()->getUser()->getId());
     return $this;
   }
   

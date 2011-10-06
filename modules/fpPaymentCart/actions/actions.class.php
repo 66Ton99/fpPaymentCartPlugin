@@ -9,27 +9,12 @@
 class fpPaymentCartActions extends sfActions
 {
   
-  protected function renderEditBox($request, $id) {
-    if ($request->getParameter('view') != '') {
-      return $this->renderComponent('fpPaymentCart',
-      														  'editbox',
-                                    array('id' => $id, 
-                                          'actions' => array('add', 'delete'), 
-                                          'view' => $request->getParameter('view')));
-    } else {
-      return $this->renderComponent('fpPaymentCart',
-      														  'editbox',
-                                    array('id' => $id, 
-                                          'actions' => array('add', 'show')));
-    }
-  }
-  
-  /**
+	/**
    * Add item to the cart
    *
    * @param sfWebRequest $request
    *
-   * @return
+   * @return sfView::NONE
    */
   public function executeNew(sfWebRequest $request)
   {
@@ -40,7 +25,26 @@ class fpPaymentCartActions extends sfActions
       ->addItemByObjIdAndObjClassName($objectId, $objectClassName)
       ->getItemByObjIdAndObjClassName($objectId, $objectClassName)
       ->getId();
-    return $this->renderEditBox($request, $id);
+    return sfView::NONE;
+  }
+  
+  /**
+   * Render row
+   *
+   * @param sfWebRequest $request
+   * @param string $id
+   *
+   * @return sfView::NONE
+   */
+  protected function renderRow($request, $id) {
+    $item = fpPaymentCartContext::getInstance()->getHolder()->getItemById($id);
+    if (empty($item)) return sfView::NONE;
+    return $this->renderComponent('fpPaymentCart',
+    														  'row',
+                                  array('id' => $id, 
+                                        'actions' => array('add', 'delete'),
+                                        'el' => 'cart_row_' . $item->getId(),
+                                        'item' => $item));
   }
   
   /**
@@ -54,7 +58,7 @@ class fpPaymentCartActions extends sfActions
   {
     $id = $request->getParameter('id');
     fpPaymentCartContext::getInstance()->getHolder()->addItemById($id);
-    return $this->renderEditBox($request, $id);
+    return $this->renderRow($request, $id);
   }
 
   /**
@@ -68,7 +72,7 @@ class fpPaymentCartActions extends sfActions
   {
     $id = $request->getParameter('id');
     fpPaymentCartContext::getInstance()->getHolder()->removeItem($id);
-    return $this->renderEditBox($request, $id);
+    return $this->renderRow($request, $id);
   }
 
   /**

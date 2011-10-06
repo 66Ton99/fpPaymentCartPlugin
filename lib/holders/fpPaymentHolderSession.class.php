@@ -22,6 +22,7 @@ class fpPaymentHolderSession extends fpPaymentHolderBase
   public function saveData(sfEvent $event)
   {
     if (!$this->isEmpty() && $event['authenticated']) {
+      fpPaymentCartTable::getInstance()->clearCustomerCart($this->getContext()->getUser()->getId());
       /* @var $item fpPaymentCart */
       foreach ($this->getAll() as $item) {
         $item->setId(null);

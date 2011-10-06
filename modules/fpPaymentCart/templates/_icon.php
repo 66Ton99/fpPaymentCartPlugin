@@ -12,10 +12,13 @@
   if ('show' == $action) { 
     echo link_to($img, url_for('@fpPaymentCartPlugin_show'));
   } else {
-    echo jq_link_to_remote($img, array('update' => $el,
-                                       'url' => url_for('@fpPaymentCartPlugin_' . $action)."?id=".$id.$extUrl,
-                                       'loading' => '$("#loader_' . $action . '_' . $id .'").show()' ,
-                                       'success'=> '$("#loader_' . $action . '_' . $id .'").hide()',
-                                       'failure' => "alert('HTTP Error ' + request.status + '!')"));
+    $options = array('update' => $el,
+                     'url' => url_for('@fpPaymentCartPlugin_' . $action)."?id=".$id.$extUrl,
+                     'loading' => '$("#loader_' . $action . '_' . $id .'").show()' ,
+                     'failure' => "alert('HTTP Error ' + request.status + '!')");
+    if (empty($el)) {
+      $options['success'] = '$("#loader_' . $action . '_' . $id .'").hide()';
+    }
+    echo jq_link_to_remote($img, $options);
   }?>
 </div>

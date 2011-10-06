@@ -9,8 +9,8 @@ use_stylesheet(sfConfig::get('fp_payment_cart_css'));
     									'icon',
                       array('action' => $action,
                       			'id' => $id,
+                      			'el' => $el,
                       			'object_id' => $object_id,
-                      			'object_class_name' => $object_class_name,
-                            'extUrl' => $view));
+                      			'object_class_name' => $object_class_name));
   } ?>
 </div>

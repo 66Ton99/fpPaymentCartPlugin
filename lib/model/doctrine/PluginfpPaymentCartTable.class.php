@@ -34,7 +34,7 @@ abstract class PluginfpPaymentCartTable extends Doctrine_Table
     $query = $this->createQuery('c')
       ->select('c.id, c.customer_id, c.object_id, c.object_class_name, c.quantity')
       ->andWhere('c.customer_id = ?', $userId);
-    if (null !== $objectId && null !== $objectClassName) {
+    if (null !== $objectId) {
       $query->andWhere('c.object_id = ?', $objectId);
       $tables = sfConfig::get('fp_payment_cart_object_classes_names');
       if (1 < count($tables)) {
