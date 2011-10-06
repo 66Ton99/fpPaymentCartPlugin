@@ -20,12 +20,13 @@ all:
       options: 
         notnull: true
   holders:
-    authenticated_holder:
+    decorator: 'fpPaymentHolder'
+    authenticated:
       class: 'sfPaymentHolderDb'
-    not_authenticated_holder:
+    not_authenticated:
       session_ns: 'fpPaymentCart'
-      class: 'sfPaymentHolderSession'
-  login_strict_mode: false # true => he have to be login, false => the user haven't to be logged It doesn't work. # TODO It must be corrected
+      class: 'fpPaymentHolderSession'
+  login_strict_mode: false # true => he have to be login, false => the user haven't to be logged
   routes:
     checkout: '@fpPaymentPlugin_checkout_payment_methods'
 #    add:      '@showCart'

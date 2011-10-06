@@ -44,8 +44,8 @@ class fpPaymentHolderSession extends fpPaymentHolderBase
     sfContext::getInstance()
       ->getEventDispatcher()
       ->connect('user.change_authentication', array($this, 'saveData'));
-    $holders = sfConfig::get('fp_payment_cart_holders', array('not_authenticated_holder' => array('session_ns' => 'fpPaymentCart')));
-    $this->ns = $holders['not_authenticated_holder']['session_ns'];
+    $holders = sfConfig::get('fp_payment_cart_holders', array('not_authenticated' => array('session_ns' => 'fpPaymentCart')));
+    $this->ns = $holders['not_authenticated']['session_ns'];
   }
   
   /**

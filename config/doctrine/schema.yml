@@ -4,7 +4,7 @@ fpPaymentCart:
   columns:
     customer_id: {type: integer, notnull: true}
     object_id: {type: integer, notnull: true, unsigned: true}
-    object_class_name: {type: string, length: 255}
+    object_class_name: {type: string(255)}
     quantity: {type: integer, notnull: true, unsigned: true}
   relations:
     Customer:
