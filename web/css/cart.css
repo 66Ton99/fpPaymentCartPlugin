@@ -1,0 +1,31 @@
+/* 
+    Document   : cart
+    Created on : 2011-01-26, 21:49:22
+    Author     : leny
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.cart{
+    cursor: pointer;
+    background-color: #e7eef6;
+    padding: 5px 10px;
+    border: 1px solid #cccccc;
+    float: left;
+}
+.cart:hover{
+    background-color: #e5e4f6;
+    padding-bottom: 10px;
+}
+.cart.small{
+    width: 50px;
+}
+.cart a img{
+    border: 0px;
+}
+.cart_loader{
+    min-width: 48px;
+    min-height: 48px;
+    position: absolute;
+    display: none;
+}

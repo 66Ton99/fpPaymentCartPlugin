@@ -1,0 +1,51 @@
+all:
+  user_model: sfGuardUser
+  callback_user:
+    function: 'fpPaymentContext::getInstance'
+    parameters: []
+    subFunctions: ['getUser']
+  cartable_extra_fields: # it aren't dynamyc fields
+#    photo:
+#      name: photo
+#      alias: null
+#      type: string
+#      length: null
+#      options:
+#        notnull: true
+    description:
+      name: description
+      alias: null
+      type: string
+      length: null
+      options: 
+        notnull: true
+  holders:
+    authenticated_holder:
+      class: 'sfPaymentHolderDb'
+    not_authenticated_holder:
+      session_ns: 'fpPaymentCart'
+      class: 'sfPaymentHolderSession'
+  login_strict_mode: false # true => he have to be login, false => the user haven't to be logged It doesn't work. # TODO It must be corrected
+  routes:
+    checkout: '@fpPaymentPlugin_checkout_payment_methods'
+#    add:      '@showCart'
+#    delete:   ''
+  object_classes_names: # name of product tables
+    - product
+#    - electronic
+#    - cars
+
+  css:         '/fpPaymentCartPlugin/css/cart.css'
+  images_path: '/fpPaymentCartPlugin/images/'
+  images:
+    new:      add_48.png
+    add:      add_48.png
+    show:     show_48.png
+    delete:   delete_48.png
+    loader:   ajax-loader.gif
+  labels:
+    new:      + Add
+    add:      + Add
+    show:     Show
+    delete:   Delete
+    loader:   Current record

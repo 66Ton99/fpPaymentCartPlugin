@@ -1,0 +1,12 @@
+fpPaymentCartPlugin_new:
+  url:   /cart/new
+  param: { module: fpPaymentCart, action: new}
+fpPaymentCartPlugin_add:
+  url:   /cart/add
+  param: { module: fpPaymentCart, action: add}
+fpPaymentCartPlugin_delete:
+  url:   /cart/delete
+  param: { module: fpPaymentCart, action: delete}
+fpPaymentCartPlugin_show:
+  url:   /cart
+  param: { module: fpPaymentCart, action: show}

@@ -1,0 +1,50 @@
+# fpPaymentCartPlugin
+
+It depends on fpPaymentPlugin, sfJqueryReloadedPlugin
+
+    $this->enablePlugins('sfDoctrinePlugin');
+    $this->enablePlugins('sfDoctrineGuardPlugin');
+    $this->enablePlugins('sfJqueryReloadedPlugin');
+    $this->enablePlugins('fpPaymentPlugin');
+    $this->enablePlugins('fpPaymentCartPlugin');
+
+
+You have to enable "fpPaymentCart"
+
+_settings.yml_
+
+    all:
+      .settings:
+        enabled_modules:
+          - fpPaymentCart
+    
+
+Get the plugin's resources by typing:
+
+    ./symfony plugin:publish-assets
+    
+
+Then clear the cache:
+
+    ./symfony cc
+    
+
+You have to create fp_payment_cart.yml file in to yours config folder and configure it.
+
+_fp_payment_cart.yml_
+
+    all:
+      object_classes_names:
+        - product # put there all your tables which you need
+     
+
+All "products" table should have fpPaymentCartable behaviour
+
+_schema.yml_
+
+    Product:
+      actAs:
+        fpPaymentCartable: ~
+      columns:
+        some_other_field: {type: integer, notnull: true}
+    

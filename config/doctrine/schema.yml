@@ -1,0 +1,13 @@
+fpPaymentCart:
+  actAs:
+    Timestampable: ~
+  columns:
+    customer_id: {type: integer, notnull: true}
+    object_id: {type: integer, notnull: true, unsigned: true}
+    object_class_name: {type: string, length: 255}
+    quantity: {type: integer, notnull: true, unsigned: true}
+  relations:
+    Customer:
+      class: sfGuardUser
+      local: customer_id
+      onDelete: CASCADE
