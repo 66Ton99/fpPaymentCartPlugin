@@ -7,9 +7,14 @@
  * @subpackage Cart
  * @author     Ton Sharp <Forma-PRO@66ton99.org.ua>
  * 
+ * @property $object fpPaymentHolderBase
+ * 
  * @method fpPaymentCart[] getAll()
  * @method fpPaymentCart getItemByObjIdAndObjClassName()
  * @method fpPaymentCart getItemById()
+ * @method fpPaymentCartHolder addItemByObjIdAndObjClassName()
+ * @method fpPaymentCartHolder removeItem()
+ * @method fpPaymentCartHolder clear()
  * @method bool isEmpty()
  */
 class fpPaymentCartHolder
@@ -47,50 +52,10 @@ class fpPaymentCartHolder
     if (!method_exists($this->object, $method)) {
       throw new sfException("Called not exist method '{$method}'");
     }
-    return call_user_func_array(array($this->object, $method), $params);
-  }
-  
-  /**
-   * @see fpPaymentCartHolderBase::addItemById()
-   *
-   * @return fpPaymentCartHolder
-   */
-  public function addItemById($id)
-  {
-    $this->object->addItemById($id);
-    return $this;
-  }
-  
-  /**
-   * @see fpPaymentCartHolderBase::addItemByObjIdAndObjClassName()
-   *
-   * @return fpPaymentCartHolder
-   */
-  public function addItemByObjIdAndObjClassName($objectId, $objectClassName)
-  {
-    $this->object->addItemByObjIdAndObjClassName($objectId, $objectClassName);
-    return $this;
-  }
-  
-	/**
-   * @see fpPaymentCartHolderBase::removeItem()
-   *
-   * @return fpPaymentCartHolder
-   */
-  public function removeItem($id)
-  {
-    $this->object->removeItem($id);
-    return $this;
-  }
-  
-	/**
-   * @see fpPaymentCartHolderBase::clear()
-   *
-   * @return fpPaymentCartHolder
-   */
-  public function clear()
-  {
-    $this->object->clear();
-    return $this;
+    $return = call_user_func_array(array($this->object, $method), $params);
+    if ($return instanceof fpPaymentHolderBase) {
+      return $this;
+    }
+    return $return;
   }
 }

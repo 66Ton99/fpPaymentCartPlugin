@@ -22,7 +22,7 @@ all:
   holders:
     decorator: 'fpPaymentCartHolder'
     authenticated:
-      class: 'sfPaymentCartHolderDb'
+      class: 'fpPaymentCartHolderDb'
     not_authenticated:
       session_ns: 'fpPaymentCart'
       class: 'fpPaymentCartHolderSession'

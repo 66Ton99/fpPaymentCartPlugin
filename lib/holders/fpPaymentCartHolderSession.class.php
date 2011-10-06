@@ -139,9 +139,11 @@ class fpPaymentCartHolderSession extends fpPaymentCartHolderBase
     if (empty($item)) {
       $item = new fpPaymentCart(); 
       $item->setObjectId($objectId)
-        ->setObjectClassName($objectClassName)
         ->setQuantity(1)
         ->setId($this->generateId());
+      if (method_exists($item, 'setObjectClassName')) {
+        $item->setObjectClassName($objectClassName);
+      }
     } else {
       $item->setQuantity($item->getQuantity() + 1);
     }

@@ -1,13 +1,22 @@
+<?php $classes = sfConfig::get('fp_payment_cart_object_classes_names', array()) ?> 
 fpPaymentCart:
   actAs:
     Timestampable: ~
   columns:
     customer_id: {type: integer, notnull: true}
-    object_id: {type: integer, notnull: true, unsigned: true}
+    object_id: {type: integer, notnull: true}
+<?php if (1 < count($classes)) { ?> 
     object_class_name: {type: string(255)}
-    quantity: {type: integer, notnull: true, unsigned: true}
+<?php } ?> 
+    quantity: {type: integer, notnull: true}
   relations:
     Customer:
       class: sfGuardUser
       local: customer_id
       onDelete: CASCADE
+<?php if (1 == count($classes)) { ?> 
+    Product:
+      class: <?php echo sfInflector::camelize(array_pop($classes)) ?> 
+      local: object_id
+      onDelete: CASCADE
+<?php } ?> 

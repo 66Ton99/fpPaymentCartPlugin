@@ -21,7 +21,7 @@ abstract class PluginfpPaymentCartTable extends Doctrine_Table
   }
   
   /**
-   * Get 
+   * prepareItemsQuery 
    *
    * @param int $userId
    * @param string $objectId
@@ -31,15 +31,18 @@ abstract class PluginfpPaymentCartTable extends Doctrine_Table
    */
   protected function prepareItemsQuery($userId, $objectId = null, $objectClassName = null)
   {
+    $tables = sfConfig::get('fp_payment_cart_object_classes_names');
     $query = $this->createQuery('c')
-      ->select('c.id, c.customer_id, c.object_id, c.object_class_name, c.quantity')
       ->andWhere('c.customer_id = ?', $userId);
     if (null !== $objectId) {
+      
       $query->andWhere('c.object_id = ?', $objectId);
-      $tables = sfConfig::get('fp_payment_cart_object_classes_names');
       if (1 < count($tables)) {
         $query->andWhere('c.object_class_name = ?', $objectClassName);
       }
+    }
+    if (1 == count($tables)) {
+      $query->innerJoin('c.Product p');
     }
     return $query;
   }
@@ -83,10 +86,26 @@ abstract class PluginfpPaymentCartTable extends Doctrine_Table
   {
     $model = new fpPaymentCart();
     $model->setObjectId($objectId);
-    $model->setObjectClassName($objectClassName);
+    if (method_exists($model, 'setObjectClassName')) {
+      $model->setObjectClassName($objectClassName);
+    }
     $model->setCustomerId($userId);
     $model->setQuantity(1);
     $model->save();
     return $model;
+  }
+  
+	/**
+   * Clear customer cart
+   *
+   * @param int $customerId
+   *
+   * @return bool
+   */
+  public function clearCustomerCart($customerId)
+  {
+    return $this->prepareItemsQuery($customerId)
+      ->delete()
+      ->execute();
   }
 }

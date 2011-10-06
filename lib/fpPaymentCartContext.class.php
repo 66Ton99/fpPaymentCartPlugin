@@ -88,14 +88,14 @@ class fpPaymentCartContext
   /**
    * Return cart holder
    *
-   * @return fpPaymentHolder
+   * @return fpPaymentCartHolder
    */
   public function getHolder()
   {
     if (empty($this->cartHolder)) {
-      $holders = sfConfig::get('fp_payment_cart_holders', array('authenticated' => array('class' => 'fpPaymentHolderDb'),
-                                                                'not_authenticated' => array('class' => 'fpPaymentHolderSession'),
-                                                                'decorator' => 'fpPaymentHolder'));
+      $holders = sfConfig::get('fp_payment_cart_holders', array('authenticated' => array('class' => 'fpPaymentCartHolderDb'),
+                                                                'not_authenticated' => array('class' => 'fpPaymentCartHolderSession'),
+                                                                'decorator' => 'fpPaymentCartHolder'));
       if (sfContext::getInstance()->getUser()->isAuthenticated()) {
         $class = $holders['authenticated']['class'];
         $object = new $class();
