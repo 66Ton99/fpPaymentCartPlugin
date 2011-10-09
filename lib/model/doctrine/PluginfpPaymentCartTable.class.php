@@ -97,7 +97,8 @@ abstract class PluginfpPaymentCartTable extends Doctrine_Table
    */
   public function clearCustomerCart($customerId)
   {
-    return $this->prepareItemsQuery($customerId)
+    return $this->createQuery()
+      ->andWhere('customer_id = ?', $customerId)
       ->delete()
       ->execute();
   }
