@@ -39,24 +39,12 @@ class fpPaymentCartComponents extends sfComponents
       $this->extUrl = null;
     }
     /* GET THE CONFIG */
-    $tables = sfConfig::get('fp_payment_cart_object_classes_names');
-    $simpleMode = false;
-    if (1 < count($tables)) {
-      $simpleMode = true;
-      if (false === array_search($this->object_class_name, $tables)) {
-        throw new sfException("Class '{$this->object_class_name}' don't find in the config");
-      }
-    }
     $this->images = sfConfig::get('fp_payment_cart_images');
     $this->labels = sfConfig::get('fp_payment_cart_labels');
     $this->path = sfConfig::get('fp_payment_cart_images_path');
     
     if ('new' == $this->action) {
       $this->extUrl .= "&object_id={$this->object_id}";
-      if ($simpleMode) {
-       
-        $this->extUrl .= "&object_class_name={$this->object_class_name}";
-      }
     }
   }
 }

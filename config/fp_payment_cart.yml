@@ -31,10 +31,7 @@ all:
     checkout: '@fpPaymentPlugin_checkout_payment_methods'
 #    add:      '@showCart'
 #    delete:   ''
-  object_classes_names: # name of product tables
-    - product
-#    - electronic
-#    - cars
+  object_classes_names: 'product' # name of product table
 
   css:         '/fpPaymentCartPlugin/css/cart.css'
   images_path: '/fpPaymentCartPlugin/images/'
@@ -45,7 +42,7 @@ all:
     delete:   delete_48.png
     loader:   ajax-loader.gif
   labels:
-    new:      + Add
+    new:      Add
     add:      + Add
     show:     Show
     delete:   Delete

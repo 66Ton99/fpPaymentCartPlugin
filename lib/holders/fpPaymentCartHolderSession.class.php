@@ -105,9 +105,8 @@ class fpPaymentCartHolderSession extends fpPaymentCartHolderBase
    */
   public function getItemByObjIdAndObjClassName($objectId, $objectClassName)
   {
-    $tables = sfConfig::get('fp_payment_cart_object_classes_names');
     foreach ($this->getAll() as $key => $val) {
-      if ($val->getObjectId() == $objectId && (1 == count($tables) || $val->getObjectClassName() == $objectClassName)) {
+      if ($val->getObjectId() == $objectId) {
         return $val;
       }
     }

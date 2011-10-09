@@ -19,37 +19,4 @@ abstract class PluginfpPaymentCart extends BasefpPaymentCart
    * @var Doctrine_Record
    */
   protected $productItem;
-
-	/**
-   * Return product object
-   * 
-   * @todo solve bug 
-   *
-   * @return Doctrine_Record
-   */
-//  public function getProduct()
-//  {
-//    $tables = sfConfig::get('fp_payment_cart_object_classes_names', array());
-//    if (1 == count($tables)) {
-//      return parent::getProduct();
-//    }
-//    if (empty($this->productItem)) {
-//      $this->productItem = Doctrine::getTable($this->getObjectClassName())->find($this->getObjectId());
-//    }
-//    return $this->productItem;
-//  }
-  
-  /**
-   * (non-PHPdoc)
-   * @see BasefpPaymentCart::getObjectClassName()
-   */
-  public function getObjectClassName()
-  {
-    $tables = sfConfig::get('fp_payment_cart_object_classes_names', array());
-    if (1 < count($tables)) {
-      return parent::getObjectClassName();
-    } else {
-      return array_pop($tables); 
-    }
-  }
 }

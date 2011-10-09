@@ -31,19 +31,12 @@ abstract class PluginfpPaymentCartTable extends Doctrine_Table
    */
   protected function prepareItemsQuery($userId, $objectId = null, $objectClassName = null)
   {
-    $tables = sfConfig::get('fp_payment_cart_object_classes_names');
     $query = $this->createQuery('c')
       ->andWhere('c.customer_id = ?', $userId);
     if (null !== $objectId) {
-      
       $query->andWhere('c.object_id = ?', $objectId);
-      if (1 < count($tables)) {
-        $query->andWhere('c.object_class_name = ?', $objectClassName);
-      }
     }
-    if (1 == count($tables)) {
-      $query->innerJoin('c.Product p');
-    }
+    $query->innerJoin('c.Product p');
     return $query;
   }
   

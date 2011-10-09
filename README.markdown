@@ -39,8 +39,7 @@ You have to create fp_payment_cart.yml file in to yours config folder and config
 _fp_payment_cart.yml_
 
     all:
-      object_classes_names:
-        - product # put there all your tables which you need
+      object_classes_names: 'product table' # put there the name your product table
      
 
 All "products" table should have fpPaymentCartable behaviour
