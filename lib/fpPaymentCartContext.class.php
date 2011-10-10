@@ -29,7 +29,8 @@ class fpPaymentCartContext
   public static function getInstance()
   {
     if (empty(static::$instance)) {
-      static::$instance = new self();
+      $class = sfConfig::get('fp_payment_cart_context_class', 'fpPaymentCartContext');
+      static::$instance = new $class();
     }
     return static::$instance;
   }
@@ -43,7 +44,8 @@ class fpPaymentCartContext
   {
     sfContext::getInstance()
       ->getEventDispatcher()
-      ->disconnect('fp_payment_order.after_create', array(fpPaymentOrderItemTable::getInstance(), 'saveCartItemsToOrderItems'));
+      ->disconnect('fp_payment_order.after_create',
+                   array(fpPaymentOrderItemTable::getInstance(), 'saveCartItemsToOrderItems'));
     sfContext::getInstance()
       ->getEventDispatcher()
       ->disconnect('fp_payment_order.after_create', array($this->getHolder(), 'clear'));
@@ -59,7 +61,8 @@ class fpPaymentCartContext
   {
     sfContext::getInstance()
       ->getEventDispatcher()
-      ->connect('fp_payment_order.after_create', array(fpPaymentOrderItemTable::getInstance(), 'saveCartItemsToOrderItems'));
+      ->connect('fp_payment_order.after_create',
+                array(fpPaymentOrderItemTable::getInstance(), 'saveCartItemsToOrderItems'));
     
     // There must call $this->getHolder()
     sfContext::getInstance()
@@ -93,9 +96,10 @@ class fpPaymentCartContext
   public function getHolder()
   {
     if (empty($this->cartHolder)) {
-      $holders = sfConfig::get('fp_payment_cart_holders', array('authenticated' => array('class' => 'fpPaymentCartHolderDb'),
-                                                                'not_authenticated' => array('class' => 'fpPaymentCartHolderSession'),
-                                                                'decorator' => 'fpPaymentCartHolder'));
+      $holders = sfConfig::get('fp_payment_cart_holders',
+                               array('authenticated' => array('class' => 'fpPaymentCartHolderDb'),
+                                     'not_authenticated' => array('class' => 'fpPaymentCartHolderSession'),
+                                     'decorator' => 'fpPaymentCartHolder'));
       if (sfContext::getInstance()->getUser()->isAuthenticated()) {
         $class = $holders['authenticated']['class'];
         $object = new $class();

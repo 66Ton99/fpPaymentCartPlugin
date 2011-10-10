@@ -1,4 +1,5 @@
 all:
+  context_class: fpPaymentCartContext
   user_model: sfGuardUser
   callback_user:
     function: 'fpPaymentContext::getInstance'
