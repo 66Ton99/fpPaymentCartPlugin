@@ -20,11 +20,9 @@ class fpPaymentCartActions extends sfActions
   {
     $objectId = $request->getParameter('object_id');
     $objectClassName = $request->getParameter('object_class_name');
-    $id = fpPaymentCartContext::getInstance()
+    fpPaymentCartContext::getInstance()
       ->getHolder()
-      ->addItemByObjIdAndObjClassName($objectId, $objectClassName)
-      ->getItemByObjIdAndObjClassName($objectId, $objectClassName)
-      ->getId();
+      ->addItemByObjId($objectId);
     return sfView::NONE;
   }
   

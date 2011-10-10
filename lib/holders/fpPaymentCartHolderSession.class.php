@@ -101,9 +101,9 @@ class fpPaymentCartHolderSession extends fpPaymentCartHolderBase
   
   /**
    * (non-PHPdoc)
-   * @see fpPaymentHolderBase::getItemByObjIdAndObjClassName()
+   * @see fpPaymentHolderBase::getItemByObjId()
    */
-  public function getItemByObjIdAndObjClassName($objectId, $objectClassName)
+  public function getItemByObjId($objectId)
   {
     foreach ($this->getAll() as $key => $val) {
       if ($val->getObjectId() == $objectId) {
@@ -132,17 +132,14 @@ class fpPaymentCartHolderSession extends fpPaymentCartHolderBase
    * (non-PHPdoc)
    * @see fpPaymentHolderBase::addItemToCart()
    */
-  public function addItemByObjIdAndObjClassName($objectId, $objectClassName)
+  public function addItemByObjId($objectId)
   {
-    $item = $this->getItemByObjIdAndObjClassName($objectId, $objectClassName);
+    $item = $this->getItemByObjId($objectId);
     if (empty($item)) {
       $item = new fpPaymentCart(); 
       $item->setObjectId($objectId)
         ->setQuantity(1)
         ->setId($this->generateId());
-      if (method_exists($item, 'setObjectClassName')) {
-        $item->setObjectClassName($objectClassName);
-      }
     } else {
       $item->setQuantity($item->getQuantity() + 1);
     }

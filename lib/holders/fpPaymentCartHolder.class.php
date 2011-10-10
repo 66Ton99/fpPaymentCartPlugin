@@ -10,9 +10,9 @@
  * @property $object fpPaymentHolderBase
  * 
  * @method fpPaymentCart[] getAll()
- * @method fpPaymentCart getItemByObjIdAndObjClassName()
+ * @method fpPaymentCart getItemByObjId()
  * @method fpPaymentCart getItemById()
- * @method fpPaymentCartHolder addItemByObjIdAndObjClassName()
+ * @method fpPaymentCartHolder addItemByObjId()
  * @method fpPaymentCartHolder removeItem()
  * @method fpPaymentCartHolder clear()
  * @method bool isEmpty()

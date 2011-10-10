@@ -12,11 +12,4 @@
  */
 abstract class PluginfpPaymentCart extends BasefpPaymentCart
 {
-  
-  /**
-   * Product item
-   *
-   * @var Doctrine_Record
-   */
-  protected $productItem;
 }

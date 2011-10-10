@@ -29,7 +29,7 @@ abstract class PluginfpPaymentCartTable extends Doctrine_Table
    *
    * @return Doctrine_Query
    */
-  protected function prepareItemsQuery($userId, $objectId = null, $objectClassName = null)
+  protected function prepareItemsQuery($userId, $objectId = null)
   {
     $query = $this->createQuery('c')
       ->andWhere('c.customer_id = ?', $userId);
@@ -49,9 +49,9 @@ abstract class PluginfpPaymentCartTable extends Doctrine_Table
    *
    * @return fpPaymentCart
    */
-  public function getItem($objectId, $objectClassName, $userId)
+  public function getItem($objectId, $userId)
   {
-    return $this->prepareItemsQuery($userId, $objectId, $objectClassName)->fetchOne();
+    return $this->prepareItemsQuery($userId, $objectId)->fetchOne();
   }
   
   /**
@@ -75,13 +75,10 @@ abstract class PluginfpPaymentCartTable extends Doctrine_Table
    *
    * @return fpPaymentCart
    */
-  public function addNewItem($objectId, $objectClassName, $userId)
+  public function addNewItem($objectId, $userId)
   {
     $model = new fpPaymentCart();
     $model->setObjectId($objectId);
-    if (method_exists($model, 'setObjectClassName')) {
-      $model->setObjectClassName($objectClassName);
-    }
     $model->setCustomerId($userId);
     $model->setQuantity(1);
     $model->save();

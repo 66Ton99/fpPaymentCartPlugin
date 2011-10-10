@@ -25,7 +25,7 @@ abstract class fpPaymentCartHolderBase
    *
    * @return fpPaymentCart
    */
-  abstract public function getItemByObjIdAndObjClassName($objectId, $objectClassName);
+  abstract public function getItemByObjId($objectId);
   
   /**
    * Get one cart item by ID
@@ -53,7 +53,7 @@ abstract class fpPaymentCartHolderBase
    *
    * @return fpPaymentHolderBase
    */
-  abstract public function addItemByObjIdAndObjClassName($objectId, $objectClassName);
+  abstract public function addItemByObjId($objectId);
   
   /**
    * Remove item by id

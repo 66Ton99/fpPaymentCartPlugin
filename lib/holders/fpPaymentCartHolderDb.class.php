@@ -31,12 +31,12 @@ class fpPaymentCartHolderDb extends fpPaymentCartHolderBase
   
 	/**
    * (non-PHPdoc)
-   * @see fpPaymentHolderBase::getItemByObjIdAndObjClassName()
+   * @see fpPaymentHolderBase::getItemByObjId()
    */
-  public function getItemByObjIdAndObjClassName($objectId, $objectClassName)
+  public function getItemByObjId($objectId)
   {
     $user = $this->getContext()->getUser();
-    return fpPaymentCartTable::getInstance()->getItem($objectId, $objectClassName, $user->getId());
+    return fpPaymentCartTable::getInstance()->getItem($objectId, $user->getId());
   }
   
   /**
@@ -57,13 +57,13 @@ class fpPaymentCartHolderDb extends fpPaymentCartHolderBase
    * (non-PHPdoc)
    * @see fpPaymentHolderBase::addItemToCart()
    */
-  public function addItemByObjIdAndObjClassName($objectId, $objectClassName)
+  public function addItemByObjId($objectId)
   {
-    if ($item = $this->getItemByObjIdAndObjClassName($objectId, $objectClassName)) {
+    if ($item = $this->getItemByObjId($objectId)) {
       $item->setQuantity($item->getQuantity() + 1);
       $item->save();
     } else {
-      fpPaymentCartTable::getInstance()->addNewItem($objectId, $objectClassName, $this->getContext()->getUser()->getId());
+      fpPaymentCartTable::getInstance()->addNewItem($objectId, $this->getContext()->getUser()->getId());
     }
     return $this;
   }

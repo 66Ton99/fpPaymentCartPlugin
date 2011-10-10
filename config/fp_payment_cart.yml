@@ -31,7 +31,7 @@ all:
     checkout: '@fpPaymentPlugin_checkout_payment_methods'
 #    add:      '@showCart'
 #    delete:   ''
-  object_classes_names: 'product' # name of product table
+  object_model_name: 'Product' # name of product table
 
   css:         '/fpPaymentCartPlugin/css/cart.css'
   images_path: '/fpPaymentCartPlugin/images/'

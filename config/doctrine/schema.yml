@@ -1,4 +1,3 @@
- 
 fpPaymentCart:
   actAs:
     Timestampable: ~
@@ -12,6 +11,6 @@ fpPaymentCart:
       local: customer_id
       onDelete: CASCADE
     Product:
-      class: <?php sfConfig::get('fp_payment_cart_object_classes_names', 'product') ?>
+      class: <?php echo sfConfig::get('fp_payment_cart_object_model_name', 'Product') ?> 
       local: object_id
       onDelete: CASCADE
