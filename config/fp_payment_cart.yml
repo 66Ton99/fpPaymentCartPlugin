@@ -5,21 +5,6 @@ all:
     function: 'fpPaymentContext::getInstance'
     parameters: []
     subFunctions: ['getUser']
-  cartable_extra_fields: # it aren't dynamyc fields
-#    photo:
-#      name: photo
-#      alias: null
-#      type: string
-#      length: null
-#      options:
-#        notnull: true
-    description:
-      name: description
-      alias: null
-      type: string
-      length: null
-      options: 
-        notnull: true
   holders:
     decorator: 'fpPaymentCartHolder'
     authenticated:

@@ -42,17 +42,6 @@ _fp_payment_cart.yml_
       object_classes_names: 'product table' # put there the name your product table
      
 
-All "products" table should have fpPaymentCartable behaviour
-
-_schema.yml_
-
-    Product:
-      actAs:
-        fpPaymentCartable: ~
-      columns:
-        some_other_field: {type: integer, notnull: true}
-    
-
 ## How to use
 
 You have to include the buttons in the view. You can add the component by adding those lines:
