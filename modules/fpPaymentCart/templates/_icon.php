@@ -12,11 +12,11 @@
   if ('show' == $action) { 
     echo link_to($img, url_for('@fpPaymentCartPlugin_show'));
   } else {
-    $options = array('update' => $el,
+    $options = array('update' => $update,
                      'url' => url_for('@fpPaymentCartPlugin_' . $action)."?id=".$id.$extUrl,
                      'loading' => '$("#loader_' . $action . '_' . $id .'").show()' ,
                      'failure' => "alert('HTTP Error ' + request.status + '!')");
-    if (empty($el)) {
+    if (empty($update)) {
       $options['success'] = '$("#loader_' . $action . '_' . $id .'").hide()';
     }
     echo jq_link_to_remote($img, $options);

@@ -34,15 +34,10 @@ class fpPaymentCartActions extends sfActions
    *
    * @return sfView::NONE
    */
-  protected function renderRow($request, $id) {
-    $item = fpPaymentCartContext::getInstance()->getHolder()->getItemById($id);
-    if (empty($item)) return sfView::NONE;
+  protected function renderRow() {
     return $this->renderComponent('fpPaymentCart',
-    														  'row',
-                                  array('id' => $id, 
-                                        'actions' => array('add', 'delete'),
-                                        'el' => 'cart_row_' . $item->getId(),
-                                        'item' => $item));
+    														  'box',
+                                  array());
   }
   
   /**
@@ -54,9 +49,9 @@ class fpPaymentCartActions extends sfActions
    */
   public function executeAdd(sfWebRequest $request)
   {
-    $id = $request->getParameter('id');
-    fpPaymentCartContext::getInstance()->getHolder()->addItemById($id);
-    return $this->renderRow($request, $id);
+    $this->id = $request->getParameter('id');
+    fpPaymentCartContext::getInstance()->getHolder()->addItemById($this->id);
+    return $this->renderRow();
   }
 
   /**
@@ -68,9 +63,9 @@ class fpPaymentCartActions extends sfActions
    */
   public function executeDelete(sfWebRequest $request)
   {
-    $id = $request->getParameter('id');
-    fpPaymentCartContext::getInstance()->getHolder()->removeItem($id);
-    return $this->renderRow($request, $id);
+    $this->id = $request->getParameter('id');
+    fpPaymentCartContext::getInstance()->getHolder()->removeItem($this->id);
+    return $this->renderRow();
   }
 
   /**
@@ -82,9 +77,6 @@ class fpPaymentCartActions extends sfActions
    */
   public function executeShow(sfWebRequest $request)
   {
-    $this->cart = fpPaymentCartContext::getInstance()->getHolder()->getAll();
-    $routes = sfConfig::get('fp_payment_cart_routes');
-    $this->checkout_route = $routes['checkout'];
   }
 
 }

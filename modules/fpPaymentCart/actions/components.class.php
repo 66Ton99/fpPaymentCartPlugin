@@ -16,7 +16,7 @@ class fpPaymentCartComponents extends sfComponents
     if (empty($this->id) && !empty($this->object_id)) {
       $this->id = $this->object_id;
     }
-    foreach (array('el', 'object_id', 'object_class_name') as $val) {
+    foreach (array('update', 'object_id', 'object_class_name') as $val) {
       if (!isset($this->$val)) {
         $this->$val = null;
       } 
@@ -28,8 +28,8 @@ class fpPaymentCartComponents extends sfComponents
   
   public function executeRow()
   {
-    if (!isset($this->el)) {
-      $this->el = null;
+    if (!isset($this->update)) {
+      $this->update = null;
     }
   }
   
@@ -46,5 +46,17 @@ class fpPaymentCartComponents extends sfComponents
     if ('new' == $this->action) {
       $this->extUrl .= "&object_id={$this->object_id}";
     }
+  }
+  
+  /**
+   * Cart box
+   *
+   * @return void
+   */
+  public function executeBox()
+  {
+    $this->cart = fpPaymentCartContext::getInstance()->getHolder()->getAll();
+    $routes = sfConfig::get('fp_payment_cart_routes');
+    $this->checkout_route = $routes['checkout'];
   }
 }
