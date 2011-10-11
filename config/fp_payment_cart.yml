@@ -37,14 +37,14 @@ all:
   css:         '/fpPaymentCartPlugin/css/cart.css'
   images_path: '/fpPaymentCartPlugin/images/'
   images:
-    new:      add_48.png
-    add:      add_48.png
-    show:     show_48.png
-    delete:   delete_48.png
-    loader:   ajax-loader.gif
+    new:      'add_48.png'
+    add:      'add_48.png'
+    show:     'show_48.png'
+    delete:   'delete_48.png'
+    loader:   'ajax-loader.gif'
   labels:
-    new:      Add
-    add:      + Add
-    show:     Show
-    delete:   Delete
-    loader:   Current record
+    new:      'Add'
+    add:      ' + Add'
+    show:     'Show'
+    delete:   ' - Remove'
+    loader:   'Current record'
