@@ -7,7 +7,7 @@ fpPaymentCart:
     quantity: {type: integer, notnull: true}
   relations:
     Customer:
-      class: sfGuardUser
+      class: <?php echo sfConfig::get('fp_payment_cart_customer_model_name', 'sfGuardUser') ?> 
       local: customer_id
       onDelete: CASCADE
     Product:

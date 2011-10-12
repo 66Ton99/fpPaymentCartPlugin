@@ -1,10 +1,10 @@
 all:
-  context_class: fpPaymentCartContext
-  user_model: sfGuardUser
-  callback_user:
+  context_class_name: fpPaymentCartContext
+  customer_model_name: <?php echo sfConfig::get('fp_payment_customer_model_name', 'sfGuardUser') ?> 
+  customer_callback:
     function: 'fpPaymentContext::getInstance'
     parameters: []
-    subFunctions: ['getUser']
+    subFunctions: ['getCustomer']
   holders:
     decorator: 'fpPaymentCartHolder'
     authenticated:

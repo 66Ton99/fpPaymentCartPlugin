@@ -18,10 +18,18 @@ if(count($cart) <= 0) {
       <?php include_component('fpPaymentCart', 'row', array('item' => $item, 'id' => $item->getId())); ?>
     </tr>
   <?php }?>
+  <?php if ($tax = fpPaymentCartContext::getInstance()->getPriceManager()->getTaxValue()) { ?>
+    <tr>
+      <td></td>
+      <td>
+        Tax: <?php echo format_currency($tax, fpPaymentCartContext::getInstance()->getCurrency()) ?>
+      </td>
+    </tr>
+  <?php }?>
   <tr>
     <td></td>
     <td>
-      Sum: <?php echo format_currency(fpPaymentCartContext::getInstance()->getSum(),
+      Sum: <?php echo format_currency(fpPaymentCartContext::getInstance()->getPriceManager()->getSum(),
                                       fpPaymentCartContext::getInstance()->getCurrency()) ?>
     </td>
   </tr>

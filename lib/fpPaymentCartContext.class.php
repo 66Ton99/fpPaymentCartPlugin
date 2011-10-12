@@ -21,6 +21,8 @@ class fpPaymentCartContext
   
   protected $cartHolder;
   
+  protected $holderToManagerHashes;
+  
   /**
    * Return singleton
    *
@@ -29,7 +31,7 @@ class fpPaymentCartContext
   public static function getInstance()
   {
     if (empty(static::$instance)) {
-      $class = sfConfig::get('fp_payment_cart_context_class', 'fpPaymentCartContext');
+      $class = sfConfig::get('fp_payment_cart_context_class_name', 'fpPaymentCartContext');
       static::$instance = new $class();
     }
     return static::$instance;
@@ -58,7 +60,7 @@ class fpPaymentCartContext
    * @return void
    */
   protected function __construct()
-  {
+  {    
     sfContext::getInstance()
       ->getEventDispatcher()
       ->connect('fp_payment_order.after_create',
@@ -71,6 +73,18 @@ class fpPaymentCartContext
   }
   
   /**
+   * Eavent hendler. Save cart items to order items
+   *
+   * @param sfEvent $event - Key: context
+   *
+   * @return void
+   */
+  public function addDataToOrder(sfEvent $event)
+  {
+    
+  }
+  
+  /**
    * Get user
    *
    * @throws sfException
@@ -80,7 +94,7 @@ class fpPaymentCartContext
   public function getUser()
   {
     if (empty($this->user)) {
-      $this->user = fpPaymentFunctions::getObjFromConfig('fp_payment_cart_callback_user',
+      $this->user = fpPaymentFunctions::getObjFromConfig('fp_payment_cart_customer_callback',
                                                          array('function' => 'fpPaymentContext::getInstance',
                                                                'parameters' => array(),
                                                                'subFunctions' => array('getUser', 'getGuardUser')));
@@ -113,18 +127,37 @@ class fpPaymentCartContext
     return $this->cartHolder;
   }
 
-  /**
-   * @return float
-   */
-  public function getSum()
+  protected function fillPriceManager()
   {
-    $items = $this->getHolder()->getAll();
-    $sum = 0.0;
-    foreach ($items as $item) {
-      /* @var $item fpPaymentCart */
-      $sum += $item->getQuantity() * $item->getProduct()->getPrice();
+    /* @var $item fpPaymentCart */
+    foreach ($this->getHolder()->getAll() as $item) {
+      new fpPaymentPriceManagerItem($this->getContext()->getPriceManager(),
+                                    $item->getProduct(),
+                                    $item->getQuantity());
     }
-    return $sum;
+  }
+  
+  /**
+   * Get Price Manager 
+   * 
+   * @return fpPaymentPriceManager
+   */
+  public function getPriceManager()
+  {
+    $priceManager = $this->getContext()->getPriceManager();
+    $priceManagerMd5 = md5(serialize($priceManager));
+    $cartItems = $this->getHolder()->getAll();
+    $cartItemsMd5 = md5(serialize($cartItems));
+
+    if (!empty($this->holderToManagerHashes[$cartItemsMd5])) {
+      if ($this->holderToManagerHashes[$cartItemsMd5] != $priceManagerMd5) {
+        $this->fillPriceManager();
+      }
+    } else {
+      $this->fillPriceManager();
+    }
+    $this->holderToManagerHashes[$cartItemsMd5] = md5(serialize($priceManager));
+    return $priceManager;
   }
   
   /**
@@ -148,4 +181,14 @@ class fpPaymentCartContext
   {
     return $this->getHolder()->isEmpty();
   }
+  
+  /**
+   * Get Payment context
+   *
+   * @return fpPaymentContext
+   */
+  protected function getContext()
+  {
+    return fpPaymentContext::getInstance();
+  } 
 }
