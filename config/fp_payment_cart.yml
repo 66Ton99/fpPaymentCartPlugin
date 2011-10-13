@@ -14,7 +14,7 @@ all:
       class: 'fpPaymentCartHolderSession'
   login_strict_mode: false # true => he have to be login, false => the user haven't to be logged
   routes:
-    checkout: '@fpPaymentPlugin_checkout_payment_methods'
+    checkout: '@fpPaymentPlugin_checkout'
 #    add:      '@showCart'
 #    delete:   ''
   object_model_name: 'Product' # name of product table
