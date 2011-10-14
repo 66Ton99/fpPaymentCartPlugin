@@ -12,12 +12,12 @@ all:
     not_authenticated:
       session_ns: 'fpPaymentCart'
       class: 'fpPaymentCartHolderSession'
-  login_strict_mode: false # true => he have to be login, false => the user haven't to be logged
+  login_strict_mode: false  # true => he have to be login, false => the user haven't to be login
   routes:
     checkout: '@fpPaymentPlugin_checkout'
 #    add:      '@showCart'
 #    delete:   ''
-  object_model_name: 'Product' # name of product table
+  object_model_name: <?php echo sfConfig::get('fp_payment_object_classe_name', 'product') ?> # name of product table
 
   css:         '/fpPaymentCartPlugin/css/cart.css'
   images_path: '/fpPaymentCartPlugin/images/'
