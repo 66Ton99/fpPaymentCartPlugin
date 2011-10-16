@@ -17,7 +17,7 @@ all:
     checkout: '@fpPaymentPlugin_checkout'
 #    add:      '@showCart'
 #    delete:   ''
-  object_model_name: <?php echo sfConfig::get('fp_payment_object_classe_name', 'product') ?> # name of product table
+  object_model_name: <?php echo sfConfig::get('fp_payment_object_classe_name', 'Product') ?> # name of product table
 
   css:         '/fpPaymentCartPlugin/css/cart.css'
   images_path: '/fpPaymentCartPlugin/images/'
