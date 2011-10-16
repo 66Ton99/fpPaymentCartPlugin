@@ -28,10 +28,7 @@ class fpPaymentCartActions extends sfActions
   
   /**
    * Render row
-   *
-   * @param sfWebRequest $request
-   * @param string $id
-   *
+   * 
    * @return sfView::NONE
    */
   protected function renderRow() {

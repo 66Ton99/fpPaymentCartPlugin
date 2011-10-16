@@ -16,7 +16,7 @@ class fpPaymentCartHolderDb extends fpPaymentCartHolderBase
    */
   public function getAll()
   {
-    $user = $this->getContext()->getUser();
+    $user = $this->getContext()->getCustomer();
     return fpPaymentCartTable::getInstance()->getItems($user->getId());
   }
   
@@ -35,7 +35,7 @@ class fpPaymentCartHolderDb extends fpPaymentCartHolderBase
    */
   public function getItemByObjId($objectId)
   {
-    $user = $this->getContext()->getUser();
+    $user = $this->getContext()->getCustomer();
     return fpPaymentCartTable::getInstance()->getItem($objectId, $user->getId());
   }
   
@@ -63,7 +63,7 @@ class fpPaymentCartHolderDb extends fpPaymentCartHolderBase
       $item->setQuantity($item->getQuantity() + 1);
       $item->save();
     } else {
-      fpPaymentCartTable::getInstance()->addNewItem($objectId, $this->getContext()->getUser()->getId());
+      fpPaymentCartTable::getInstance()->addNewItem($objectId, $this->getContext()->getCustomer()->getId());
     }
     return $this;
   }
@@ -91,7 +91,7 @@ class fpPaymentCartHolderDb extends fpPaymentCartHolderBase
    */
   public function clear()
   {
-    fpPaymentCartTable::getInstance()->clearCustomerCart($this->getContext()->getUser()->getId());
+    fpPaymentCartTable::getInstance()->clearCustomerCart($this->getContext()->getCustomer()->getId());
     return $this;
   }
   
@@ -103,7 +103,7 @@ class fpPaymentCartHolderDb extends fpPaymentCartHolderBase
   {
     return !(bool)fpPaymentCartTable::getInstance()
       ->createQuery()
-      ->addWhere('customer_id = ?', $this->getContext()->getUser()->getId())
+      ->addWhere('customer_id = ?', $this->getContext()->getCustomer()->getId())
       ->count();
   }
   

@@ -91,7 +91,7 @@ class fpPaymentCartContext
    *
    * @return sfGuardUser
    */
-  public function getUser()
+  public function getCustomer()
   {
     if (empty($this->user)) {
       $this->user = fpPaymentFunctions::getObjFromConfig('fp_payment_cart_customer_callback',

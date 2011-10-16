@@ -18,5 +18,5 @@ $currency = fpPaymentCartContext::getInstance()->getCurrency();
   												'editbox',
                           array('id' => $id,
                                 'actions' => array('add', 'delete'),
-                                'update' => 'fp_payment_cart_box')) ?>
+                                'update' => empty($update)?'fp_payment_cart_box':$update)) ?>
 </td>

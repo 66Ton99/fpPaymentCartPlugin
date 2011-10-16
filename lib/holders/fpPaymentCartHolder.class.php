@@ -29,8 +29,8 @@ class fpPaymentCartHolder
 
   /**
    * Constructor
-   *
-   * @return void
+   * 
+   * @param fpPaymentCartHolderBase $object
    */
   function __construct(fpPaymentCartHolderBase $object)
   {
