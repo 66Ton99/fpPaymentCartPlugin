@@ -4,9 +4,15 @@ fpPaymentCartPlugin_new:
 fpPaymentCartPlugin_add:
   url:   /cart/add
   param: { module: fpPaymentCart, action: add}
+fpPaymentCartPlugin_setQuantity:
+  url:   /cart/setQuantity
+  param: { module: fpPaymentCart, action: setQuantity}
 fpPaymentCartPlugin_delete:
   url:   /cart/delete
   param: { module: fpPaymentCart, action: delete}
+fpPaymentCartPlugin_remove:
+  url:   /cart/remove
+  param: { module: fpPaymentCart, action: remove}
 fpPaymentCartPlugin_show:
   url:   /cart
   param: { module: fpPaymentCart, action: show}

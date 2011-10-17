@@ -10,7 +10,6 @@ use_stylesheet(sfConfig::get('fp_payment_cart_css'));
                       array('action' => $action,
                       			'id' => $id,
                       			'update' => $update,
-                      			'object_id' => $object_id,
-                      			'object_class_name' => $object_class_name));
+                      			'object_id' => $object_id));
   } ?>
 </div>

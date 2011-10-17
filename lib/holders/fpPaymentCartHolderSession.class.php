@@ -123,9 +123,8 @@ class fpPaymentCartHolderSession extends fpPaymentCartHolderBase
     if ($item = $this->getItemById($id)) {
       $item->setQuantity($item->getQuantity() + 1);
       $this->getSessionHolder()->set($item->getId(), $item, $this->getNs());
-      return $this;
     }
-    return false;
+    return $this;
   }
   
   /**
@@ -148,6 +147,21 @@ class fpPaymentCartHolderSession extends fpPaymentCartHolderBase
     return $this;
   }
   
+	/**
+   * (non-PHPdoc)
+   * @see fpPaymentHolderBase::addItemToCart()
+   */
+  public function setQuantity($id, $quantity)
+  {
+    /* @var $item fpPaymentCart */
+    if (($item = $this->getItemById($id)) && 0 < (int)$quantity) {
+      $item->setQuantity((int)$quantity);
+      $this->getSessionHolder()->set($item->getId(), $item, $this->getNs());
+      return $this;
+    }
+    return $this;
+  }
+  
   /**
    * (non-PHPdoc)
    * @see fpPaymentHolderBase::removeItem()
@@ -161,6 +175,16 @@ class fpPaymentCartHolderSession extends fpPaymentCartHolderBase
       $item->setQuantity($item->getQuantity() - 1);
       $this->getSessionHolder()->set($item->getId(), $item, $this->getNs());
     }
+    return $this;
+  }
+  
+	/**
+   * (non-PHPdoc)
+   * @see fpPaymentHolderBase::deleteItem()
+   */
+  public function deleteItem($id)
+  {
+    $this->getSessionHolder()->remove($id, null, $this->getNs());
     return $this;
   }
 

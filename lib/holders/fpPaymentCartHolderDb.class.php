@@ -68,6 +68,20 @@ class fpPaymentCartHolderDb extends fpPaymentCartHolderBase
     return $this;
   }
   
+	/**
+   * (non-PHPdoc)
+   * @see fpPaymentHolderBase::setQuantity()
+   */
+  public function setQuantity($id, $quantity)
+  {
+    $item = $this->getItemById($id);
+    if ($item && 0 < (int)$quantity) {
+      $item->setQuantity((int)$quantity);
+      $item->save();
+    }
+    return $this;
+  }
+  
   /**
    * (non-PHPdoc)
    * @see fpPaymentHolderBase::removeItem()
@@ -82,6 +96,19 @@ class fpPaymentCartHolderDb extends fpPaymentCartHolderBase
       } else {
         $item->delete();
       }
+    }
+    return $this;
+  }
+  
+  /**
+   * (non-PHPdoc)
+   * @see fpPaymentCartHolderBase::deleteItem()
+   */
+  public function deleteItem($id)
+  {
+    $item = fpPaymentCartTable::getInstance()->findOneById($id);
+    if ($item) {
+      $item->delete();
     }
     return $this;
   }

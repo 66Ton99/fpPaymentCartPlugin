@@ -5,13 +5,12 @@
   border: 1px solid #cccccc;
   float: left;
 }
+.cart .overlay {
+  padding: 6px 11px;
+}
 
 .cart:hover {
   background-color: #e5e4f6;
-}
-
-.cart.small {
-  width: 50px;
 }
 
 .cart a img {
@@ -19,8 +18,9 @@
 }
 
 .cart_loader {
-  min-width: 48px;
-  min-height: 48px;
-  position: absolute;
-  display: none;
+  background: #cccccc url("../images/loader_31x31.gif") center center no-repeat !important;
+}
+
+.fp_payment_cart_table input {
+  width: 30px;
 }

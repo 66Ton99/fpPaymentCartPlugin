@@ -13,23 +13,19 @@ all:
       session_ns: 'fpPaymentCart'
       class: 'fpPaymentCartHolderSession'
   login_strict_mode: false  # true => he have to be login, false => the user haven't to be login
-  routes:
-    checkout: '@fpPaymentPlugin_checkout'
-#    add:      '@showCart'
-#    delete:   ''
   object_model_name: <?php echo sfConfig::get('fp_payment_object_classe_name', 'Product') ?> # name of product table
-
-  css:         '/fpPaymentCartPlugin/css/cart.css'
+  object_partial: 'fpPaymentCart/product'
+  css: '/fpPaymentCartPlugin/css/cart.css'
+  js: '/fpPaymentCartPlugin/js/cart.js'
+  js_overlay: '/fpPaymentCartPlugin/js/jquery.overlay.min.js'
   images_path: '/fpPaymentCartPlugin/images/'
   images:
-    new:      'add_48.png'
-    add:      'add_48.png'
-    show:     'show_48.png'
-    delete:   'delete_48.png'
-    loader:   'ajax-loader.gif'
+    new:      'add_48x48.png'
+    add:      'add_48x48.png'
+    remove:   'remove_48x48.png'
+    delete:   'delete_16x16.gif'
   labels:
     new:      'Add'
     add:      ' + Add'
-    show:     'Show'
-    delete:   ' - Remove'
-    loader:   'Current record'
+    remove:   ' - Remove'
+    delete:   'Remove item'

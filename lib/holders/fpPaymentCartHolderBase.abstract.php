@@ -56,13 +56,32 @@ abstract class fpPaymentCartHolderBase
   abstract public function addItemByObjId($objectId);
   
   /**
-   * Remove item by id
+   * Delete cart item by id
+   *
+   * @param int $id
+   *
+   * @return fpPaymentHolderBase
+   */
+  abstract public function deleteItem($id);
+  
+  /**
+   * Remove product item by id
    *
    * @param int $id
    *
    * @return fpPaymentHolderBase
    */
   abstract public function removeItem($id);
+  
+  /**
+   * Sert items quantity
+   *
+   * @param int $id
+   * @param int $quantity
+   *
+   * @return fpPaymentHolderBase
+   */
+  abstract public function setQuantity($id, $quantity);
 
   /**
    * Clrear all cart content
