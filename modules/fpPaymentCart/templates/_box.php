@@ -30,6 +30,16 @@ if(count($cart) <= 0) {
       																										 'update' => 'fp_payment_cart_box')); ?>
     </tr>
   <?php }?>
+  <?php if ($shipping = fpPaymentCartContext::getInstance()->getPriceManager()->getShippingPrice()) { ?>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        Shipping: <?php echo format_currency($shipping, fpPaymentCartContext::getInstance()->getCurrency()) ?>
+      </td>
+    </tr>
+  <?php }?>
   <?php if ($tax = fpPaymentCartContext::getInstance()->getPriceManager()->getTaxValue()) { ?>
     <tr>
       <td></td>
