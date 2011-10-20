@@ -1,3 +1,3 @@
 default:
-  require_ssl: true
+  require_ssl: false
   is_secure: <?php echo sfConfig::get('fp_payment_cart_login_strict_mode') . "\n" ?>
