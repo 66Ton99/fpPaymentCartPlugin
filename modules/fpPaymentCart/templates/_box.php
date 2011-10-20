@@ -30,33 +30,42 @@ if(count($cart) <= 0) {
       																										 'update' => 'fp_payment_cart_box')); ?>
     </tr>
   <?php }?>
-  <?php if ($shipping = fpPaymentCartContext::getInstance()->getPriceManager()->getShippingPrice()) { ?>
+  <?php if (($subTotal = $cartPriceManager->getSubTotal()) != ($sum = $cartPriceManager->getSum())) { ?>
     <tr>
       <td></td>
       <td></td>
-      <td></td>
+      <td>Subtotal: </td>
       <td>
-        Shipping: <?php echo format_currency($shipping, fpPaymentCartContext::getInstance()->getCurrency()) ?>
+        <?php echo format_currency($subTotal, $currency) ?>
+      </td>
+    </tr>
+  <?php }?> 
+  <?php if ($shipping = $cartPriceManager->getShippingPrice()) { ?>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Shipping: </td>
+      <td>
+        <?php echo format_currency($shipping, $currency) ?>
       </td>
     </tr>
   <?php }?>
-  <?php if ($tax = fpPaymentCartContext::getInstance()->getPriceManager()->getTaxValue()) { ?>
+  <?php if ($tax = $cartPriceManager->getTaxValue()) { ?>
     <tr>
       <td></td>
       <td></td>
-      <td></td>
+      <td>Tax: </td>
       <td>
-        Tax: <?php echo format_currency($tax, fpPaymentCartContext::getInstance()->getCurrency()) ?>
+        <?php echo format_currency($tax, $currency) ?>
       </td>
     </tr>
   <?php }?>
   <tr>
     <td></td>
     <td></td>
-    <td></td>
+    <td>Sum: </td>
     <td>
-      Sum: <?php echo format_currency(fpPaymentCartContext::getInstance()->getPriceManager()->getSum(),
-                                      fpPaymentCartContext::getInstance()->getCurrency()) ?>
+      <?php echo format_currency($sum, $currency) ?>
     </td>
   </tr>
   </tbody>

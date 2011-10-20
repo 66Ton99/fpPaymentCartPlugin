@@ -17,7 +17,7 @@ class fpPaymentCartContext
    */
   protected static $instance;
   
-  protected $user;
+  protected $customer;
   
   protected $cartHolder;
   
@@ -73,18 +73,6 @@ class fpPaymentCartContext
   }
   
   /**
-   * Eavent hendler. Save cart items to order items
-   *
-   * @param sfEvent $event - Key: context
-   *
-   * @return void
-   */
-  public function addDataToOrder(sfEvent $event)
-  {
-    
-  }
-  
-  /**
    * Get user
    *
    * @throws sfException
@@ -93,13 +81,13 @@ class fpPaymentCartContext
    */
   public function getCustomer()
   {
-    if (empty($this->user)) {
-      $this->user = fpPaymentFunctions::getObjFromConfig('fp_payment_cart_customer_callback',
+    if (empty($this->customer)) {
+      $this->customer = fpPaymentFunctions::getObjFromConfig('fp_payment_cart_customer_callback',
                                                          array('function' => 'fpPaymentContext::getInstance',
                                                                'parameters' => array(),
-                                                               'subFunctions' => array('getUser', 'getGuardUser')));
+                                                               'subFunctions' => array('getCustomer')));
     }
-    return $this->user;
+    return $this->customer;
   }
   
   /**
