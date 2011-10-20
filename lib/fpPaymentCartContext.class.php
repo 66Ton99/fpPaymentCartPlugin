@@ -115,11 +115,11 @@ class fpPaymentCartContext
     return $this->cartHolder;
   }
 
-  protected function fillPriceManager()
+  protected function fillPriceManager($priceManager)
   {
     /* @var $item fpPaymentCart */
     foreach ($this->getHolder()->getAll() as $item) {
-      new fpPaymentPriceManagerItem($this->getContext()->getPriceManager(),
+      new fpPaymentPriceManagerItem($priceManager,
                                     $item->getProduct(),
                                     $item->getQuantity());
     }
@@ -132,17 +132,17 @@ class fpPaymentCartContext
    */
   public function getPriceManager()
   {
-    $priceManager = $this->getContext()->getPriceManager();
+    $priceManager = clone $this->getContext()->getPriceManager();
     $priceManagerMd5 = md5(serialize($priceManager));
     $cartItems = $this->getHolder()->getAll();
     $cartItemsMd5 = md5(serialize($cartItems));
 
     if (!empty($this->holderToManagerHashes[$cartItemsMd5])) {
       if ($this->holderToManagerHashes[$cartItemsMd5] != $priceManagerMd5) {
-        $this->fillPriceManager();
+        $this->fillPriceManager($priceManager);
       }
     } else {
-      $this->fillPriceManager();
+      $this->fillPriceManager($priceManager);
     }
     $this->holderToManagerHashes[$cartItemsMd5] = md5(serialize($priceManager));
     return $priceManager;
