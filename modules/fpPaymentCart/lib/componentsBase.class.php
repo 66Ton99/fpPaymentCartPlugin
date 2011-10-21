@@ -56,8 +56,8 @@ class fpPaymentCartComponentsBase extends sfComponents
   public function executeBox()
   {
     $cartContext = fpPaymentCartContext::getInstance();
-    $this->currency = $cartContext->getCurrency();
     $this->cartPriceManager = $cartContext->getPriceManager();
+    $this->currency = $this->cartPriceManager->getCurrency();
     $this->cart = $cartContext->getHolder()->getAll();
   }
 }

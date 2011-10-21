@@ -2,7 +2,7 @@
 use_helper('jQuery');
 use_stylesheet(sfConfig::get('fp_payment_cart_css'));
 $object = $item->getProduct();
-$currency = fpPaymentCartContext::getInstance()->getCurrency();
+$currency = fpPaymentCartContext::getInstance()->getPriceManager()->getCurrency();
 ?>
 <td>
   <?php include_partial(sfConfig::get('fp_payment_cart_object_partial', 'fpPaymentCart/product'), array('object' => $object)) ?>

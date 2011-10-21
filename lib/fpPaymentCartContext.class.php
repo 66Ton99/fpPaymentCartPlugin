@@ -46,8 +46,7 @@ class fpPaymentCartContext
   {
     sfContext::getInstance()
       ->getEventDispatcher()
-      ->disconnect('fp_payment_order.after_create',
-                   array(fpPaymentOrderItemTable::getInstance(), 'saveCartItemsToOrderItems'));
+      ->disconnect('fp_payment_order.befor_create', array($this, 'getPriceManager'));
     sfContext::getInstance()
       ->getEventDispatcher()
       ->disconnect('fp_payment_order.after_create', array($this->getHolder(), 'clear'));
@@ -60,11 +59,10 @@ class fpPaymentCartContext
    * @return void
    */
   protected function __construct()
-  {    
+  {
     sfContext::getInstance()
       ->getEventDispatcher()
-      ->connect('fp_payment_order.after_create',
-                array(fpPaymentOrderItemTable::getInstance(), 'saveCartItemsToOrderItems'));
+      ->connect('fp_payment_order.befor_create', array($this, 'getPriceManager'));
     
     // There must call $this->getHolder()
     sfContext::getInstance()
@@ -115,13 +113,19 @@ class fpPaymentCartContext
     return $this->cartHolder;
   }
 
+  /**
+   * Fill fpPaymentPriceManager
+   *
+   * @param fpPaymentPriceManager $priceManager
+   *
+   * @return void
+   */
   protected function fillPriceManager($priceManager)
   {
     /* @var $item fpPaymentCart */
     foreach ($this->getHolder()->getAll() as $item) {
-      new fpPaymentPriceManagerItem($priceManager,
-                                    $item->getProduct(),
-                                    $item->getQuantity());
+      $priceItem = new fpPaymentPriceManagerItem($item->getProduct(), $item->getQuantity());
+      $priceManager->addItem($priceItem);
     }
   }
   
@@ -132,7 +136,7 @@ class fpPaymentCartContext
    */
   public function getPriceManager()
   {
-    $priceManager = clone $this->getContext()->getPriceManager();
+    $priceManager = $this->getContext()->getPriceManager();
     $priceManagerMd5 = md5(serialize($priceManager));
     $cartItems = $this->getHolder()->getAll();
     $cartItemsMd5 = md5(serialize($cartItems));
@@ -146,18 +150,6 @@ class fpPaymentCartContext
     }
     $this->holderToManagerHashes[$cartItemsMd5] = md5(serialize($priceManager));
     return $priceManager;
-  }
-  
-  /**
-   * Retrun currency
-   * 
-   * @todo not implemented yet
-   *
-   * @return string
-   */
-  public function getCurrency()
-  {
-    return sfConfig::get('fp_payment_cart_currency', 'USD');
   }
   
   /**
