@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Cart holder
+ * Cart holder decorator
  * 
  * @package    fpPayment
  * @subpackage Cart
@@ -20,15 +20,8 @@
  * @method fpPaymentCartHolder clear()
  * @method bool isEmpty()
  */
-class fpPaymentCartHolder
+class fpPaymentCartHolder extends fpPaymentDecoratorBase
 {
-  
-  /**
-   * Holder storage
-   *
-   * @var fpPaymentHolderBase
-   */
-  protected $object = null;
 
   /**
    * Constructor
@@ -41,22 +34,13 @@ class fpPaymentCartHolder
   }
   
   /**
-   * Magic method
-   *
-   * @param string $method
-   * @param array $params
-   * 
-   * @throws sfException
-   *
-   * @return mixed
+   * (non-PHPdoc)
+   * @see fpPaymentDecoratorBase::__call()
    */
   public function __call($method, $params)
   {
-    if (!method_exists($this->object, $method)) {
-      throw new sfException("Called not exist method '{$method}'");
-    }
-    $return = call_user_func_array(array($this->object, $method), $params);
-    if ($return instanceof fpPaymentHolderBase) {
+    $return = parent::__call($method, $params);
+    if ($return instanceof fpPaymentCartHolderBase) {
       return $this;
     }
     return $return;
