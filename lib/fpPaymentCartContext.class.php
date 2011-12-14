@@ -80,7 +80,7 @@ class fpPaymentCartContext
   public function getCustomer()
   {
     if (empty($this->customer)) {
-      $functionsClassName = sfConfig::get('functions_class_name');
+      $functionsClassName = sfConfig::get('fp_payment_functions_class_name');
       $this->customer = $functionsClassName::getObjFromConfig('fp_payment_cart_customer_callback',
                                                          array('function' => 'fpPaymentContext::getInstance',
                                                                'parameters' => array(),
